@@ -1,0 +1,157 @@
+1. MainActivity.kt
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+
+
+class MainActivity : AppCompatActivity() {
+    lateinit var edit1 : EditText
+    lateinit var edit2 : EditText
+    lateinit var btnAdd : Button; lateinit var btnSub : Button
+    lateinit var btnMul : Button; lateinit var btnDiv : Button
+
+    lateinit var textResult : TextView
+
+    lateinit var num1 : String; lateinit var num2 : String
+
+    var result : Int? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        edit1 = findViewById(R.id.Edit1)
+        edit2 = findViewById(R.id.Edit2)
+
+        btnAdd = findViewById(R.id.BtnAdd)
+        btnSub = findViewById(R.id.BtnSub)
+        btnMul = findViewById(R.id.BtnMul)
+        btnDiv = findViewById(R.id.BtnDiv)
+
+        textResult = findViewById(R.id.TxtResult)
+
+        btnAdd.setOnTouchListener { view, motionEvent ->
+            num1 = edit1.text.toString()
+            num2 = edit2.text.toString()
+            result = Integer.parseInt(num1) + Integer.parseInt(num2)
+            textResult.text = "결  과 : " + result.toString()
+            false
+        }
+
+        btnSub.setOnTouchListener { view, motionEvent ->
+            num1 = edit1.text.toString()
+            num2 = edit2.text.toString()
+            result = Integer.parseInt(num1) - Integer.parseInt(num2)
+            textResult.text = "결  과 : " + result.toString()
+            false
+        }
+    }
+}
+
+
+2. xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="첫 번째 숫자 입력"
+        android:id="@+id/Edit1"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="두 번째 숫자 입력"
+        android:id="@+id/Edit2"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="더 하 기"
+        android:layout_margin="10dp"
+        android:id="@+id/BtnAdd"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="뻬   기"
+        android:layout_margin="10dp"
+        android:id="@+id/BtnSub"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="곱 하 기"
+        android:layout_margin="10dp"
+        android:id="@+id/BtnMul"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="나 누 기"
+        android:layout_margin="10dp"
+        android:id="@+id/BtnDiv"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text = " 결 과 : "
+        android:id="@+id/TxtResult"/>
+</LinearLayout>
+
+
+
+3. 토스트 보여주는 MainActivity
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+
+
+class MainActivity : AppCompatActivity() {
+    lateinit var edit1 : EditText
+    lateinit var edit2 : EditText
+    lateinit var btnAdd : Button; lateinit var btnSub : Button
+    lateinit var btnMul : Button; lateinit var btnDiv : Button
+
+    lateinit var textResult : TextView
+
+    lateinit var num1 : String; lateinit var num2 : String
+
+    var result : Double? = null // 실수 값으로 계산
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        edit1 = findViewById(R.id.Edit1)
+        edit2 = findViewById(R.id.Edit2)
+
+        btnAdd = findViewById(R.id.BtnAdd)
+        btnSub = findViewById(R.id.BtnSub)
+
+
+        textResult = findViewById(R.id.TxtResult)
+
+        btnAdd.setOnClickListener {
+            num1 = edit1.text.toString()
+            num2 = edit2.text.toString()
+            if(num1.trim() == "" || num2.trim() == "") {
+                Toast.makeText(applicationContext, "값을 입력해 주세요", Toast.LENGTH_SHORT).show()
+            } else {
+                result = num1.toDouble() + num2.toDouble()
+                textResult.text = "결  과 : " + result.toString()
+            }
+        }
+    }
+}
